@@ -148,7 +148,7 @@
           <div>
             <p class="description">客の注文に合わせて寿司を作り、投げて届けるVRゲームです。私はゲームプレイ全般のプログラムを担当しました。</p>
             <p class="tech">Unity / C# / SteamVR / NavMesh</p>
-            <div class="links"><a class="button" href="#sushi-video">プレイ動画を見る ↑</a><a class="button" href="./vr-sushi-guide.pdf" target="_blank" rel="noopener noreferrer">作品説明書（PDF）↗</a><a class="button primary" href="https://github.com/jy-1105/game-portfolio/releases/download/sushi-windows-2026-09-30/VR-Sushi-Dangan-Windows.zip" aria-describedby="sushi-download-note">実行データをダウンロード（ZIP）↓</a></div>
+            <div class="links"><a class="button" href="#sushi-video">プレイ動画を見る ↑</a><a class="button" href="./vr-sushi-guide.pdf" target="_blank" rel="noopener noreferrer">作品説明書（PDF）↗</a><a class="button primary" href="https://github.com/jy-1105/game-portfolio/releases/download/sushi-windows-2026-09-30/VR-Sushi-Dangan-Windows.zip" aria-describedby="sushi-download-note">実行データをダウンロード（ZIP）↓</a><a class="button" href="https://github.com/jy-1105/game-portfolio/tree/main/source/vr-sushi" target="_blank" rel="noopener noreferrer">ソースコードを見る（GitHub）↗</a></div>
             <p id="sushi-download-note" style="font-size:12px;color:var(--muted);margin:12px 0 0">Windows用 · 約148MB · SteamVR・対応VR機器が必要です。<br>ZIPをすべて展開し、フォルダー内の <code>New Sushi Master.exe</code> を起動してください。</p>
           </div>
           <div class="role"><h4>担当した機能</h4><ul class="plain-list"><li>寿司の生成・つかみ・投擲</li><li>注文アイコンと残り時間の頭上UI</li><li>客の生成・空席判定・移動・着席</li><li>注文の正誤判定とスコア管理</li><li>ランク表示とプレイ振り返り演出</li></ul></div>
@@ -167,10 +167,25 @@
         </section>
         <details><summary>ほかに対応したこと：座席管理・リトライ処理</summary>
           <div class="detail-body">
-            <div><h4>移動中に客が消えたときの座席管理</h4><p>客の生成時に空席を予約し、着席後に注文を開始する構成です。移動中に客が破棄されても席が使用中のまま残らないよう、席の予約と解放をまとめて管理しました。</p></div>
+            <div><h4>移動中に客が消えたときの座席管理</h4><p>空席を選んで客を生成し、NavMesh上で移動先を設定できた時点で席を予約します。着席後に注文を開始する構成です。移動中に客が破棄されても席が使用中のまま残らないよう、席の予約と解放をまとめて管理しました。</p></div>
             <div><h4>リトライ後のUIと振り返り画像</h4><p>シーンをまたいで保持するScoreManagerには、新しいシーンのUIをつなぎ直す処理を追加しました。振り返り画像は保存枚数を制限し、使い終えたTexture2DはClear()だけでなくDestroy()で解放しています。</p></div>
           </div>
         </details>
+
+        <section class="implementation" id="sushi-source" aria-labelledby="sushi-source-title">
+          <h4 id="sushi-source-title">ソースコード（主要7ファイル）</h4>
+          <p>担当した実装のうち、投擲・注文・客の移動・スコア管理に関するコードを公開しています。ファイル名をクリックすると、GitHubでコードを確認できます。</p>
+          <dl class="code-roles" aria-label="公開ソースコードと担当処理">
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/SushiThrowable.cs" target="_blank" rel="noopener noreferrer"><code>SushiThrowable.cs</code> ↗</a></dt><dd>SteamVRのつかみ・投擲、客への受け渡し、同じ寿司の重複判定防止</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/CustomerOrderWithTimer.cs" target="_blank" rel="noopener noreferrer"><code>CustomerOrderWithTimer.cs</code> ↗</a></dt><dd>注文の選択・時間管理・正誤判定、次の注文への切り替え</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/CustomerOrderView.cs" target="_blank" rel="noopener noreferrer"><code>CustomerOrderView.cs</code> ↗</a></dt><dd>注文アイコン・残り時間・タイムゲージの表示</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/SushiOrderData.cs" target="_blank" rel="noopener noreferrer"><code>SushiOrderData.cs</code> ↗</a></dt><dd>寿司の種類・アイコン・注文ボイスのデータ</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/CustomerSpawner.cs" target="_blank" rel="noopener noreferrer"><code>CustomerSpawner.cs</code> ↗</a></dt><dd>空席の確認、客の順次生成、NavMesh上への配置</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/CustomerSitting.cs" target="_blank" rel="noopener noreferrer"><code>CustomerSitting.cs</code> ↗</a></dt><dd>座席への移動・着席、注文の開始、予約席と着席済みの席の解放</dd></div>
+            <div><dt><a href="https://github.com/jy-1105/game-portfolio/blob/main/source/vr-sushi/ScoreManager.cs" target="_blank" rel="noopener noreferrer"><code>ScoreManager.cs</code> ↗</a></dt><dd>得点・統計・ハイスコア、シーンをまたぐUI参照、リプレイ画像の記録と解放</dd></div>
+          </dl>
+          <p class="note">公開しているのはプロジェクトの一部です。寿司の生成、ランク・リプレイを表示するリザルト画面、シーン・Prefabなどは含みません。実行にはページ上部の実行データをご利用ください。</p>
+        </section>
       </article>
 
       <article class="project" id="tremor" aria-labelledby="tremor-title">
