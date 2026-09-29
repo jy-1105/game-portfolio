@@ -14,17 +14,17 @@ public class SushiThrowable : MonoBehaviour
     public string sushiType = "Maguro";
 
     [Header("Throw Settings")]
-    [Tooltip("投げる力の倍率")]
+    [Tooltip("投擲時の速度にかける倍率")]
     public float throwMultiplier = 1.5f;
 
     [Tooltip("投げた後に自動的に消えるまでの時間（秒）")]
     public float autoDestroyTime = 10f;
 
     [Header("Effects")]
-    [Tooltip("お客さんに当たったときのエフェクト")]
+    [Tooltip("注文と一致する寿司が客に当たったときのエフェクト")]
     public GameObject hitEffect;
 
-    [Tooltip("お客さんに当たったときの効果音")]
+    [Tooltip("注文と一致する寿司が客に当たったときの効果音")]
     public AudioClip hitSound;
 
     [Tooltip("間違った寿司が当たったときのエフェクト")]
@@ -33,7 +33,7 @@ public class SushiThrowable : MonoBehaviour
     [Tooltip("間違った寿司が当たったときの効果音")]
     public AudioClip wrongHitSound;
 
-    [Tooltip("客以外（床や壁）に当たったときの効果音")]
+    [Tooltip("客以外のflooringタグ付きオブジェクトに当たったときの効果音")]
     public AudioClip splatSound;
 
     [Tooltip("投げたときの効果音")]
@@ -138,7 +138,7 @@ public class SushiThrowable : MonoBehaviour
         // 客のコライダーが子オブジェクトに付いている場合もあるため、親も含めて検索する
         CustomerOrderWithTimer customer = collision.gameObject.GetComponentInParent<CustomerOrderWithTimer>();
 
-        // 稀にcontactsが空のままイベントが来ることがあるため、自身の位置でフォールバックする
+        // 接触点を取得できない場合は、自身の位置を使う
         Vector3 hitPoint = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
 
         if (customer != null)
@@ -161,19 +161,16 @@ public class SushiThrowable : MonoBehaviour
     }
 
     /// <summary>
-    /// 客への受け渡しを試みる唯一の入口。寿司側の衝突経路と客側のトリガー経路の
-    /// どちらから呼ばれても、1個の寿司が注文判定に使われるのは1回だけになる。
+    /// 衝突・トリガーの両方から呼び出す、寿司の受け渡し処理。
+    /// 受け渡し済みの寿司は判定しない。
     /// </summary>
     public bool TryDeliverTo(CustomerOrderWithTimer customer, Vector3 hitPoint)
     {
-        // 手に持ったまま接触した場合など、投げていない寿司は受け付けない。
-        // hasHitTargetの先勝ちチェックで、複数コライダーや隣接する客との
-        // 同一フレーム内の多重接触による二重判定を防ぐ。
+        // 投げていない寿司や受け渡し済みの寿司は判定しない。
         if (!hasBeenThrown || hasHitTarget || customer == null) return false;
 
-        // 正誤判定は注文を管理する客側に委ねる。受付拒否（注文非アクティブ）の場合は
-        // 誤答演出を出さず、寿司も消費しない（隣の客に当たり直す余地を残し、
-        // 残った寿司はautoDestroyTimeで自然消滅する）。
+        // 正誤判定はCustomerOrderWithTimerが行う。
+        // 注文を受け付けない客には演出を出さず、寿司も消費しない。
         if (!customer.TryReceiveSushi(sushiType, out bool isCorrect)) return false;
 
         // 受付が成立した時点で消費済み扱いにし、以降の接触では判定しない

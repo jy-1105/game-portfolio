@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// 客の頭上に表示する注文UI（テキスト・アイコン・残り時間・タイムゲージ）の表示専門クラス。
-/// 判定やタイマー進行のロジックは持たず、CustomerOrderWithTimerから渡された値を表示するだけに徹する。
+/// 客の頭上に表示する注文UI（テキスト・アイコン・残り時間・タイムゲージ）を更新する。
+/// 注文の判定や時間管理はCustomerOrderWithTimerが行う。
 /// </summary>
 public class CustomerOrderView : MonoBehaviour
 {
@@ -37,7 +37,7 @@ public class CustomerOrderView : MonoBehaviour
 
     private void OnValidate()
     {
-        // redThresholdがyellowThresholdを超えると色分けの意味が逆転するため補正する
+        // 赤のしきい値が黄のしきい値を上回らないように補正する
         if (redThreshold > yellowThreshold)
         {
             Debug.LogWarning($"{name}: redThresholdがyellowThresholdより大きいため入れ替えます。", this);

@@ -9,7 +9,7 @@ using UnityEngine;
 public class CustomerOrderWithTimer : MonoBehaviour
 {
     [Header("注文設定")]
-    [Tooltip("客が注文しうる寿司の一覧。種類・アイコン・ボイスをまとめて登録する")]
+    [Tooltip("客が注文する寿司の候補。種類・アイコン・ボイスを登録する")]
     [SerializeField] private SushiOrderData[] possibleOrders;
     [Tooltip("1注文あたりの制限時間（秒）")]
     [SerializeField] private float timeLimit = 45f;
@@ -33,7 +33,7 @@ public class CustomerOrderWithTimer : MonoBehaviour
     [SerializeField] private Vector3 effectSpawnOffset = new Vector3(0f, 2f, 0f);
     [Tooltip("生成したエフェクトを自動破棄するまでの時間（秒）")]
     [SerializeField] private float effectLifetime = 2f;
-    [Tooltip("設定するとこのAudioSourceから再生する（未設定の場合はAudioSource.PlayClipAtPointにフォールバック）")]
+    [Tooltip("音声の再生に使用するAudioSource（取得できない場合はAudioSource.PlayClipAtPointを使用）")]
     [SerializeField] private AudioSource audioSource;
 
     [Header("スコア設定")]
@@ -120,6 +120,7 @@ public class CustomerOrderWithTimer : MonoBehaviour
 
     private void OnDisable()
     {
+        // 待機中に無効化された場合、再開にはActivateOrderの呼び出しが必要。
         CancelNextOrderRoutine();
     }
 
@@ -139,19 +140,17 @@ public class CustomerOrderWithTimer : MonoBehaviour
     }
 
     /// <summary>
-    /// 寿司の受け渡しを試みる。正誤の判定は注文を管理するこのクラス側で行う。
-    /// 戻り値がfalseの場合は注文が非アクティブで受付自体が拒否されており、
-    /// 正誤処理・スコア反映は一切行われていない。呼び出し側は誤答演出をしないこと。
+    /// 寿司を受け付けた場合はtrueを返し、正誤をisCorrectに設定する。
+    /// 受け付けられない場合はfalseを返し、演出やスコア更新は行わない。
     /// </summary>
     public bool TryReceiveSushi(string sushiTypeName, out bool isCorrect)
     {
         isCorrect = false;
 
-        // 次の注文までの待機中などは受付そのものを拒否する。
-        // ここで誤答扱いにすると、注文がない間の命中が理不尽な減点になるため。
+        // 次の注文までの待機中など、注文がない間は受け付けず、減点もしない。
         if (!isOrderActive || currentOrder == null) return false;
 
-        // 外部から渡される判定値には頼らず、必ず現在の注文と照合して判定する
+        // 現在の注文と照合して正誤を判定する
         isCorrect = WantsSushi(sushiTypeName);
 
         if (isCorrect) HandleCorrectSushi();
@@ -161,8 +160,7 @@ public class CustomerOrderWithTimer : MonoBehaviour
     }
 
     /// <summary>
-    /// 旧API互換用。isCorrect引数は互換のために残しているが、
-    /// 外部判定値をそのまま信用する事故を防ぐため、内部で再判定する。
+    /// isCorrect引数は判定に使わず、TryReceiveSushiで現在の注文と照合する。
     /// </summary>
     public void ReceiveSushi(string sushiTypeName, bool isCorrect)
     {
@@ -244,11 +242,8 @@ public class CustomerOrderWithTimer : MonoBehaviour
     }
 
     // ---- 寿司との接触判定（トリガー方式） ----
-    // 現状のプレハブは客・寿司ともコライダーが非トリガーのため、実際の判定は
-    // SushiThrowable.OnCollisionEnter側の経路で行われる。
-    // 客側コライダーをトリガーに変更した構成でも動くようこちらの経路も残すが、
-    // 受付・寿司の消費・演出はすべてSushiThrowable.TryDeliverToに集約し、
-    // 両経路が同時に成立しても1個の寿司が二重に判定されないようにしている。
+    // トリガーで接触した寿司もTryDeliverToへ渡す。
+    // 衝突判定と受け渡し処理を共有し、同じ寿司の二重判定を防ぐ。
 
     private void OnTriggerEnter(Collider other)
     {

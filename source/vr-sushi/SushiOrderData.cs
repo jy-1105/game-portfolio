@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// 1種類の寿司に紐づく注文データ（種類・アイコン・注文ボイス）をまとめたもの。
-/// 寿司を追加する際はswitch文を増やすのではなく、Inspector配列に要素を追加するだけでよい。
+/// 注文候補は、InspectorでCustomerOrderWithTimerのpossibleOrders配列に登録する。
 /// </summary>
 [System.Serializable]
 public class SushiOrderData

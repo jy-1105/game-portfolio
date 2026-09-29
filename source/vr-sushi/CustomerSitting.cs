@@ -19,7 +19,7 @@ public class CustomerSitting : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>(); // モデルは子オブジェクト側にアタッチされている構成
+        anim = GetComponentInChildren<Animator>(); // 自身または子オブジェクトのAnimatorを取得する
 
         if (anim == null)
         {
@@ -37,8 +37,8 @@ public class CustomerSitting : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定した席へ向けて移動を開始する。移動を開始できた場合のみ席を予約してtrueを返す。
-    /// falseの場合は席を予約していないため、呼び出し側はこの客を破棄してよい。
+    /// 指定した席を移動先に設定し、設定要求が成功したら席を予約してtrueを返す。
+    /// 経路が席まで到達できるかどうかは、この時点では確認していない。
     /// </summary>
     public bool GoToSeat(SeatPoint seat)
     {
@@ -52,15 +52,14 @@ public class CustomerSitting : MonoBehaviour
 
         agent.enabled = true;
 
-        // NavMesh上にいない・経路を設定できない場合は予約する前に中断する。
-        // 先に予約してしまうと、席にたどり着けない客がその席を永久に塞ぐため。
+        // NavMesh上にいない場合や移動先の設定要求に失敗した場合は、席を予約しない。
         if (!agent.isOnNavMesh || !agent.SetDestination(seat.transform.position))
         {
             Debug.LogError("CustomerSitting: 席への経路を設定できませんでした。", this);
             return false;
         }
 
-        // 移動開始が確定してから席を予約する
+        // 移動先の設定要求が成功したら席を予約する
         targetSeat = seat;
         targetSeat.isOccupied = true;
 
@@ -104,7 +103,7 @@ public class CustomerSitting : MonoBehaviour
             agent.enabled = false; // 着席後は経路探索が不要なため無効化
         }
 
-        // 座標をSeatPointに完全に一致させる
+        // 位置と向きをSeatPointに合わせる
         transform.position = currentSeat.transform.position;
         transform.rotation = currentSeat.transform.rotation;
 

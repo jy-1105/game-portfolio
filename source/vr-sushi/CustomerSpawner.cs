@@ -23,7 +23,7 @@ public class CustomerSpawner : MonoBehaviour
     [Header("客の生成間隔（秒）")]
     public float spawnInterval = 30f;
 
-    // customerPrefabs を順番に消化するためのインデックス
+    // 次に生成するプレハブのインデックス
     private int nextPrefabIndex = 0;
 
     private void Start()
@@ -82,8 +82,7 @@ public class CustomerSpawner : MonoBehaviour
             AudioSource.PlayClipAtPoint(spawnSound, spawnPos);
         }
 
-        // 必要なコンポーネントを欠いた客は席へ向かえず立ち尽くすだけなので、
-        // 警告を出したうえで残さず破棄する
+        // CustomerSittingがない場合は、警告を出して客を破棄する。
         CustomerSitting customer = obj.GetComponent<CustomerSitting>();
         if (customer == null)
         {
@@ -109,7 +108,7 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        // 移動を開始できなかった場合、席は予約されていないため客ごと破棄してよい
+        // 移動先の設定に失敗した客を破棄する。
         if (!customer.GoToSeat(freeSeat))
         {
             Destroy(obj);
@@ -117,7 +116,7 @@ public class CustomerSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// customerPrefabs を先頭から順に返す（null要素はスキップし、末尾到達で先頭に戻る）。
+    /// customerPrefabsを先頭から順に返す。null要素はスキップし、末尾に達したら先頭に戻る。
     /// </summary>
     private GameObject GetNextCustomerPrefabInOrder()
     {
@@ -137,7 +136,7 @@ public class CustomerSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 未使用の席を1つ返す。無ければnull。
+    /// 空席を1つ返す。見つからない場合はnullを返す。
     /// </summary>
     private SeatPoint GetFreeSeat()
     {

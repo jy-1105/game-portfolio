@@ -95,8 +95,8 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
-            // 2周目以降はシーン側の新しいインスタンスを破棄する。
-            // ただしUI参照は古いシーンのものが死んでいるため、新しいシーンのものへ引き継ぐ。
+            // 既存のインスタンスがある場合は、新しいインスタンスを破棄する。
+            // 破棄する前に、新しいシーンのUI参照を既存のインスタンスへ渡す。
             Instance.AdoptSceneReferences(scoreText, highScoreText);
             Destroy(gameObject);
             return;
@@ -124,13 +124,13 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        // クレーマーが店内にいる間、滞在人数×秒数分をスコアから継続的に減点する
+        // クレーマーの人数・経過時間・毎秒の減点量に応じて、減点分を蓄積する
         if (activeAngryCustomerCount > 0)
         {
             totalAngryTime += Time.deltaTime;
             scoreAccumulator += Time.deltaTime * activeAngryCustomerCount * penaltyPerCustomerPerSecond;
 
-            // penaltyStep分溜まるごとに1回だけ減点する（フレームごとの端数減点を避けるため）
+            // 蓄積した減点分がpenaltyStep以上なら、このフレームで1回減点する
             if (scoreAccumulator >= penaltyStep)
             {
                 int step = Mathf.Max(1, Mathf.FloorToInt(penaltyStep));
@@ -141,8 +141,8 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲームシーンを再ロードした際、破棄される側のインスタンスからUI参照を受け取る。
-    /// あわせてリプレイ録画も新しいプレイ用に再開する。
+    /// 新しいシーンのUI参照に差し替え、録画開始処理を呼び出す。
+    /// 録画中の場合は、StartRecording側で既存の録画を継続する。
     /// </summary>
     private void AdoptSceneReferences(TMP_Text newScoreText, TMP_Text newHighScoreText)
     {
@@ -237,7 +237,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// スコアと統計を初期化する（リザルトからタイトルへ戻る際に呼ばれる）。
+    /// スコアと今回のプレイの統計を初期化する。
     /// インスタンスがシーンをまたいで残るため、前回プレイの値が持ち越されないようにする。
     /// </summary>
     public void ResetScore()
@@ -271,9 +271,8 @@ public class ScoreManager : MonoBehaviour
     {
         if (isRecording) return; // 二重開始による録画コルーチンの多重起動を防ぐ
 
-        // 前回プレイのフレームはここで完全に破棄する。
-        // Texture2Dが抱えるネイティブメモリはGC対象外のため、
-        // List.Clear()だけではテクスチャ本体が残り続けてメモリリークになる。
+        // 前回の記録画像を破棄する。
+        // List.Clear()だけではTexture2D本体は破棄されないため、Destroyで解放する。
         ClearReplayFrames();
 
         isRecording = true;
@@ -292,9 +291,8 @@ public class ScoreManager : MonoBehaviour
             recordingCoroutine = null;
         }
 
-        // 注意: ここではreplayFramesを破棄しない。
-        // 直後のリザルト画面がリプレイ表示に使うため、破棄は使用が終わる
-        // タイミング（次の録画開始時・タイトル復帰時・自身の破棄時）に行う。
+        // リザルト表示のため、ここでは記録画像を残す。
+        // 表示後に解放する場合はClearReplayFramesを呼ぶ。
     }
 
     /// <summary>
@@ -312,9 +310,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // シングルトン本体の破棄時（アプリ終了など）はテクスチャも合わせて解放する。
-        // シーンロード時に即破棄される2個目以降のインスタンスは録画フレームを
-        // 持っていないため、本体のリストを誤って消さないようInstance判定で除外する。
+        // シングルトン本体の破棄時に、記録画像とInstance参照を解放する。
         if (Instance == this)
         {
             ClearReplayFrames();
@@ -332,7 +328,7 @@ public class ScoreManager : MonoBehaviour
             Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
             replayFrames.Add(texture);
 
-            // 一定枚数を超えたら古いフレームから破棄する（メモリリーク防止）
+            // メモリ使用量を抑えるため、上限を超えたら古い画像を破棄する
             if (replayFrames.Count > maxFrames)
             {
                 Texture2D old = replayFrames[0];
