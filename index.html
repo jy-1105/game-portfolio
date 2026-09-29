@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="沈 周用（SIM JUYONG）のゲームプログラマーポートフォリオ。Unity / C#によるVRゲーム、デバイス連携、ゲームプレイ・UIの実装を紹介します。">
+  <meta name="theme-color" content="#153f3b">
+  <title>SIM JUYONG | Game Programmer Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23153f3b'/%3E%3Ctext x='32' y='43' text-anchor='middle' fill='%23c6f267' font-family='Arial' font-size='32' font-weight='700'%3EJ%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{--paper:#f6f7f8;--white:#fff;--ink:#152521;--muted:#52615c;--line:#d8dfdc;--green:#153f3b;--lime:#c6f267;--soft:#edf2ef;--blue:#285bc4;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a,button,summary{-webkit-tap-highlight-color:transparent}a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:5px}::selection{background:var(--lime);color:var(--ink)}.wrap{max-width:1160px;margin:auto;padding:0 40px}.skip{position:fixed;left:20px;top:-100px;background:var(--ink);color:#fff;padding:10px 20px;z-index:99}.skip:focus{top:10px}.topbar{position:sticky;top:0;z-index:20;background:rgba(246,247,248,.96);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;min-height:84px;gap:24px}.brand{font-size:17px;font-weight:800;letter-spacing:.04em;display:flex;gap:12px;align-items:center}.brand-mark{display:grid;place-items:center;background:var(--green);color:var(--lime);width:34px;height:34px;border-radius:9px;font-family:var(--mono);font-size:18px}.navlinks{display:flex;gap:30px;align-items:center;font-size:14px;font-weight:600}.navlinks a{padding:8px 0}.navlinks a:hover{text-decoration:underline;text-underline-offset:7px}.nav-year{color:var(--muted);font:13px var(--mono);border-left:1px solid var(--line);padding-left:25px}.hero{padding:82px 0 74px;display:grid;grid-template-columns:1.4fr .8fr;gap:68px;align-items:center}.eyebrow{font:13px/1.5 var(--mono);letter-spacing:.12em;color:var(--muted);display:block;margin:0 0 23px}.hero h1{font-size:clamp(35px,4.4vw,57px);font-weight:750;letter-spacing:-.05em;line-height:1.5;margin:0 0 23px}.hero h1 span{color:var(--green)}.intro{max-width:540px;color:var(--muted);margin:0 0 25px;line-height:1.95}.name{font-size:22px;font-weight:700;margin:0}.name small{font-size:13px;font-family:var(--mono);font-weight:400;letter-spacing:.08em;margin-left:13px}.affiliation{font-size:14px;color:var(--muted);margin:3px 0 29px}.buttons{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:6px;padding:10px 22px;font-size:14px;font-weight:600;background:var(--white);transition:background .15s,transform .15s}.button:hover{background:var(--soft);transform:translateY(-2px)}.button.primary{background:var(--green);color:white;border-color:var(--green)}.button.primary:hover{background:#235a50}.focus-panel{background:var(--green);color:white;padding:30px;border-radius:10px;position:relative}.panel-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff30;padding-bottom:20px;margin-bottom:15px;font:13px var(--mono);letter-spacing:.04em}.panel-head span:last-child{color:var(--lime)}.focus-row{padding:19px 0;border-bottom:1px solid #ffffff25;display:grid;grid-template-columns:30px 1fr;gap:12px}.focus-row:last-of-type{border-bottom:0}.focus-row>span{font:13px/1.8 var(--mono);color:#c4d6ce}.focus-row strong{font-size:18px;font-weight:550}.focus-row p{color:#cbdcd6;font-size:14px;line-height:1.65;margin:5px 0 0}.panel-foot{margin:22px 0 0;color:var(--lime);font:13px var(--mono)}.section{padding:75px 0;border-top:1px solid var(--line)}.section-title{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:33px}.section-title .eyebrow{margin-bottom:9px}.section-title h2{font-size:30px;letter-spacing:-.025em;margin:0;line-height:1.5}.section-title>p{font-size:14px;color:var(--muted);margin:0}.project{background:white;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:26px}.project-top{padding:36px;display:grid;grid-template-columns:1.1fr 1fr;gap:38px}.project-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;font:13px/1.6 var(--mono);color:var(--muted)}.badge{display:inline-block;padding:3px 10px;border-radius:4px;background:var(--soft);color:var(--green);font:600 12px/1.7 sans-serif;letter-spacing:.02em}.badge.dev{background:#fff4d7;color:#74500b}.project h3{font-size:29px;line-height:1.5;letter-spacing:-.025em;margin:0 0 8px}.project .lead{font-size:17px;font-weight:600;margin:0 0 13px}.project p{color:var(--muted);margin:0 0 16px}.tags{display:flex;flex-wrap:wrap;gap:7px}.tag{font:12px/1.7 var(--mono);border:1px solid var(--line);border-radius:4px;padding:3px 8px;color:var(--muted)}.project-note{margin-top:22px;font-size:14px;color:var(--muted)}.role-panel{background:var(--soft);border-radius:6px;padding:23px 26px}.role-panel h4{font-size:14px;margin:0 0 13px;font-weight:650}.role-panel ul{padding:0;margin:0;list-style:none}.role-panel li{padding:9px 0 9px 17px;border-top:1px solid #dce3de;position:relative;font-size:15px;line-height:1.7}.role-panel li:before{content:"";width:5px;height:5px;background:var(--green);position:absolute;left:0;top:19px}.project details{border-top:1px solid var(--line)}.project summary{padding:19px 36px;font-size:14px;font-weight:650;cursor:pointer;display:flex;justify-content:space-between;align-items:center;list-style:none;background:#fcfdfc;gap:20px}.project summary::-webkit-details-marker{display:none}.project summary:after{content:"＋";font-size:20px;line-height:1}.project details[open] summary:after{content:"−"}.project summary:hover{background:var(--soft)}.detail-body{padding:4px 36px 32px}.case{padding:25px 0;border-bottom:1px solid var(--line)}.case:last-child{border:0;padding-bottom:0}.case-label{color:var(--green);font:12px var(--mono);letter-spacing:.08em}.case h4{font-size:19px;margin:10px 0 12px}.case p{font-size:15px;line-height:1.9}.architecture{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.architecture>div{border:1px solid var(--line);padding:17px;border-radius:5px;background:var(--paper)}.architecture strong{display:block;font-size:15px}.architecture code{display:block;font:12px/1.6 var(--mono);overflow-wrap:anywhere;color:var(--muted);margin-top:4px}.case .result{border-left:3px solid var(--green);padding-left:16px;margin-top:18px;color:var(--ink)}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px}.two-col h4{font-size:16px;margin:19px 0 9px}.plain-list{padding-left:1.3em;margin:0;color:var(--muted);font-size:15px;line-height:2}.media{margin:0 36px 28px}.media img{display:block;width:100%;max-height:570px;object-fit:contain;background:#e9eeec;border-radius:6px}.media figcaption{font-size:13px;color:var(--muted);margin-top:8px}.project-links{padding:0 36px 25px;display:flex;gap:10px;flex-wrap:wrap}.skills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px}.skill-column{padding:24px 0;border-top:2px solid var(--green)}.skill-column .num{font:13px var(--mono);color:var(--muted)}.skill-column h3{font-size:20px;margin:13px 0}.skill-column p{font-size:15px;color:var(--muted)}.skill-column .stack{font-size:15px;color:var(--ink);font-weight:600;line-height:1.9}.about{display:grid;grid-template-columns:.7fr 1.3fr;gap:65px}.about h3{font-size:27px;margin:0 0 15px}.about p{color:var(--muted);margin:0 0 19px}.facts{display:grid;grid-template-columns:110px 1fr;margin:24px 0 0;font-size:14px;border-top:1px solid var(--line)}.facts dt,.facts dd{padding:13px 0;margin:0;border-bottom:1px solid var(--line)}.facts dt{color:var(--muted)}.about-title{font:13px var(--mono);letter-spacing:.1em;color:var(--green);margin-bottom:17px}.statement{border-left:3px solid var(--green);padding-left:23px;font-size:20px;font-weight:550;line-height:1.9;margin:0 0 24px}.footer{padding:27px 0;border-top:1px solid var(--line)}.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font:12px/1.7 var(--mono)}.footer a{font:14px sans-serif;text-decoration:underline;text-underline-offset:5px}.profile-links{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}[hidden]{display:none!important}
+    .media video{display:block;width:100%;aspect-ratio:16/9;background:#111;border-radius:6px}.document-link{padding:0 36px 28px}.research-media{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;padding:0 36px 28px}.research-media figure{margin:0;min-width:0}.research-media img,.research-media video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#14201c;border-radius:6px}.research-media figcaption{color:var(--muted);font-size:13px;margin-top:7px}.case code{font-family:var(--mono)}
+    @media(max-width:650px){.research-media{grid-template-columns:1fr;padding:0 23px 23px}.document-link{padding:0 23px 23px}.desktop-break{display:none}}
+    @media(min-width:1500px){.hero{padding-top:100px;padding-bottom:100px}}
+    @media(max-width:900px){.wrap{padding:0 28px}.hero{grid-template-columns:1.25fr 1fr;gap:30px;padding:56px 0}.hero h1{font-size:38px}.focus-panel{padding:23px}.project-top{gap:26px;padding:28px}.project summary{padding:18px 28px}.detail-body{padding:0 28px 28px}.about{gap:35px}.architecture{grid-template-columns:1fr}.skills{gap:20px}.nav-year{display:none}}
+    @media(max-width:650px){html{scroll-padding-top:110px}.wrap{padding:0 21px}.nav{min-height:91px;align-items:flex-start;justify-content:center;flex-direction:column;gap:2px;padding-top:12px;padding-bottom:10px}.brand{font-size:15px}.brand-mark{width:27px;height:27px;font-size:15px;border-radius:6px}.navlinks{width:100%;justify-content:space-between;gap:15px;font-size:13px}.navlinks a{padding:5px 0}.hero{grid-template-columns:1fr;padding:44px 0;gap:31px}.hero h1{font-size:clamp(30px,7.8vw,43px);line-height:1.5}.eyebrow{font-size:12px;margin-bottom:19px}.intro{font-size:15px}.name{font-size:21px}.name small{font-size:12px}.focus-panel{padding:23px}.focus-row{padding:14px 0}.focus-row strong{font-size:17px}.panel-foot{margin-top:17px}.section{padding:47px 0}.section-title{display:block;margin-bottom:25px}.section-title h2{font-size:27px}.section-title>p{margin-top:12px}.project-top{grid-template-columns:1fr;padding:23px;gap:22px}.project h3{font-size:25px}.project .lead{font-size:16px}.project p{font-size:15px}.project summary{padding:17px 23px}.detail-body{padding:0 23px 25px}.role-panel{padding:18px 20px}.case h4{font-size:18px}.two-col{grid-template-columns:1fr;gap:0}.skills{grid-template-columns:1fr;gap:6px}.skill-column{padding:20px 0}.skill-column h3{margin:8px 0}.about{grid-template-columns:1fr;gap:27px}.statement{font-size:18px}.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}.media{margin:0 23px 23px}.project-links{padding:0 23px 23px}.facts{grid-template-columns:85px 1fr}.button{min-height:44px}.project-meta{gap:8px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+    @media print{.topbar{position:static}.navlinks,.buttons,.footer a{display:none}.wrap{max-width:none;padding:0 18px}.hero{padding:25px 0}.hero h1{font-size:30px}.section{padding:25px 0}.project,.role-panel,.focus-panel{break-inside:avoid}.focus-panel{background:white;color:var(--ink);border:1px solid var(--line)}.focus-panel p,.focus-panel span,.panel-foot{color:var(--ink)!important}.project summary{display:none}.project details:not([open]) .detail-body{display:block}.project-top{padding:20px}.skills{gap:20px}body{font-size:12px}.project p,.case p{font-size:12px}}
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#main">本文へスキップ</a>
+  <header class="topbar"><nav class="wrap nav" aria-label="メインナビゲーション">
+    <a class="brand" href="#top" aria-label="SIM JUYONG トップ"><span class="brand-mark" aria-hidden="true">J.</span>SIM JUYONG</a>
+    <div class="navlinks"><a href="#works">Works</a><a href="#skills">Skills</a><a href="#about">About</a><span class="nav-year">PORTFOLIO / 2027</span></div>
+  </nav></header>
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">GAME PROGRAMMER / 2027 GRADUATE</p>
+        <h1 id="hero-title">「遊びやすい」を考え、<br><span>「楽しい」を実装する。</span></h1>
+        <p class="intro">プレイヤーの操作から、UI、ゲーム進行まで。<br>Unity / C#を中心に、遊ぶ人の視点を大切にした<br class="desktop-break">ゲームづくりに取り組んでいます。</p>
+        <p class="name">沈 周用 <small>SIM JUYONG</small></p>
+        <p class="affiliation">東海大学 情報メディア学科 / 2027年卒業予定</p>
+        <div class="buttons"><a class="button primary" href="#works">制作作品を見る</a><a class="button" href="#about">プロフィール</a></div>
+      </div>
+      <aside class="focus-panel" aria-label="開発で取り組んでいる領域">
+        <div class="panel-head"><span>DEVELOPMENT FOCUS</span><span>C# / Unity</span></div>
+        <div class="focus-row"><span>01</span><div><strong>Gameplay</strong><p>つかむ・投げる・操作する。<br>入力をゲームの体験につなげる。</p></div></div>
+        <div class="focus-row"><span>02</span><div><strong>UI &amp; Feedback</strong><p>注文、時間、スコア。<br>必要な情報を、必要な瞬間に。</p></div></div>
+        <div class="focus-row"><span>03</span><div><strong>Game Systems</strong><p>状態管理と役割の分離で、<br>ゲーム全体の流れを支える。</p></div></div>
+        <p class="panel-foot">INPUT / EXPERIENCE / IMPLEMENTATION</p>
+      </aside>
+    </section>
+    <section id="works" class="section" aria-labelledby="works-title">
+      <div class="section-title"><div><span class="eyebrow">01 / SELECTED WORKS</span><h2 id="works-title">制作作品</h2></div><p>ゲームの概要と、私が担当した実装。</p></div>
+      <article class="project" id="sushi">
+        <div class="project-top"><div>
+          <div class="project-meta"><span class="badge">3人チーム制作</span><span>2025.11 — 2026.01</span></div>
+          <h3>VR寿司弾丸</h3>
+          <p class="lead">握って、投げて、注文に応える。</p>
+          <p>来店した客の注文に合わせて寿司を作り、投げて届けるVRゲーム。直感的な操作と、複数の注文に対応する忙しさを組み合わせました。</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">SteamVR</span><span class="tag">NavMesh</span></div>
+          <div class="project-note">担当領域：ゲームプレイ全般のプログラム</div>
+        </div><div class="role-panel"><h4>主な担当機能</h4><ul><li>寿司の生成・つかみ・投擲</li><li>注文アイコン・残り時間の頭上UI</li><li>客の生成・空席判定・移動・着席</li><li>注文の正誤判定・スコア管理</li><li>ランク表示・プレイ振り返り演出</li></ul></div></div>
+        <figure class="media"><video controls playsinline preload="metadata" poster="./sushi.jpg" aria-label="VR寿司弾丸 プレイ動画"><source src="./sushi-play.mp4" type="video/mp4"><a href="./sushi-play.mp4">プレイ動画を開く</a></video><figcaption>VR寿司弾丸 / プレイ動画・日本語字幕付き / 約1分</figcaption></figure><div class="document-link"><a class="button" href="./vr-sushi-guide.pdf" target="_blank" rel="noopener">作品説明書を読む（PDF）</a></div><div data-media="sushi"></div><div class="project-links" data-links="sushi" hidden></div>
+        <details><summary>技術的な工夫・課題と解決</summary><div class="detail-body">
+          <div class="case"><span class="case-label">CASE 01 / RESPONSIBILITY</span><h4>肥大化した注文システムを、役割ごとに分離</h4><p>注文の生成、タイマー、UI更新、正誤判定などが1つのクラスに集中していました。変更しやすい構成を目指し、進行・表示・データ管理に責務を分離しました。</p><div class="architecture" aria-label="注文システムの責務分担"><div><strong>注文データ</strong><code>SushiOrderData</code></div><div><strong>進行・正誤判定</strong><code>CustomerOrderWithTimer</code></div><div><strong>UI表示</strong><code>CustomerOrderView</code></div></div><p class="result">寿司の種類は文字列比較からenumを中心とした比較へ変更。既存の投擲処理との境界で変換し、互換性を維持しました。寿司の受け渡しの入口を一本化し、正誤判定を注文管理側に集約することで二重判定を防ぎました。</p></div>
+          <div class="case"><span class="case-label">CASE 02 / GAME FLOW</span><h4>来店から注文開始までを、状態に沿って制御</h4><p>座席ごとに使用状態を管理し、客の生成時に空席を割り当てます。NavMesh上を移動した後、座席に合わせて位置・向きを補正し、座席への到着時に注文と制限時間を開始しました。</p><p class="result">席の予約・解放処理を一本化。移動中に客が破棄されても、席が使用中のまま残らないようにしました。</p></div>
+          <div class="case"><span class="case-label">CASE 03 / LIFECYCLE &amp; MEMORY</span><h4>リトライ時の参照切れと、記録画像の増加に対応</h4><p>シーンをまたいで保持するScoreManagerに、新しいシーンのUI参照をつなぎ直す処理を実装。振り返り用の画面キャプチャは保存枚数に上限を設けました。また、リストのClear()だけでは残ってしまうネイティブメモリに対し、使用後のTexture2Dを明示的にDestroy()する処理を追加しました。</p><p class="result">シーン再読み込み後のUI参照を復旧し、古いフレームの破棄と明示的なメモリ解放を組み合わせました。</p></div>
+        </div></details>
+      </article>
+      <article class="project" id="tremor">
+        <div class="project-top"><div>
+          <div class="project-meta"><span class="badge dev">開発中 / 卒業研究</span><span>2026</span></div>
+          <h3>手の震え体験ゲーム</h3><p class="lead">実物のカップと、ゲームの中の動作をつなぐ。</p>
+          <p>コップ型デバイスを使い、手の揺れや不安定さによって動作が難しくなる感覚を体験するゲームを開発しています。特定の疾患を正確に再現するものではなく、体験を通じた理解を目指す研究です。</p>
+          <div class="tags"><span class="tag">Unity / C#</span><span class="tag">ATOM Matrix</span><span class="tag">IMU</span><span class="tag">UDP</span></div>
+          <div class="project-note">研究テーマ：コップ型デバイスを用いた手の震え体験ゲームの開発</div>
+        </div><div class="role-panel"><h4>現在の実装内容</h4><ul><li>実物カップ型デバイスとゲームの連携</li><li>主要なゲーム進行</li><li>振動動作の実装（強さ・タイミングは調整中）</li><li>散らばった本・走り回る子どものギミック</li><li>水を補給できるキッチン</li></ul></div></div>
+        <div class="research-media"><figure><img src="./tremor.jpg" alt="開発中の手の震え体験ゲーム。カップを持って室内を移動する一人称視点の画面" loading="lazy" width="1280" height="720"><figcaption>開発中のゲーム画面 / 進捗発表資料より</figcaption></figure><figure><video controls playsinline preload="none" poster="./device.jpg" aria-label="カップ型デバイスの動作デモ"><source src="./device-demo.mp4" type="video/mp4"><a href="./device-demo.mp4">デバイスの動作動画を開く</a></video><figcaption>実物カップ型デバイスの動作デモ</figcaption></figure></div><div data-media="tremor"></div><div class="project-links" data-links="tremor" hidden></div>
+        <details><summary>現在の到達点・今後の改善</summary><div class="detail-body"><div class="two-col"><div><h4>実装・改善を進めた内容</h4><ul class="plain-list"><li>カップ型デバイスのデモ版を制作</li><li>実物デバイスとゲームの動作を連携</li><li>振動機能と複数のギミックを実装</li><li>ゲーム内のグラフィックを改善</li></ul></div><div><h4>今後取り組む内容</h4><ul class="plain-list"><li>振動の強さ・タイミングの調整</li><li>ギミックとゲームバランスの改善</li><li>グラフィックの完成度向上</li><li>サウンドの実装・評価実験の準備</li></ul></div></div></div></details>
+      </article>
+      <article class="project" id="pancake">
+        <div class="project-top"><div>
+          <div class="project-meta"><span class="badge">チーム制作</span><span>2024.10 — 2024.12</span></div>
+          <h3>FLY_PANCAKE</h3><p class="lead">力を調整して、パンケーキを飛ばす。</p><p>パンケーキを操作するゲーム。入力とパワー調整、衝突判定、UI、効果音の実装を担当しました。</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Physics</span><span class="tag">UI</span></div>
+        </div><div class="role-panel"><h4>主な担当機能</h4><ul><li>パンケーキの操作・発射</li><li>パワー調整システム・ゲージUI</li><li>衝突判定</li><li>効果音</li></ul></div></div>
+        <div data-media="pancake"></div><div class="project-links" data-links="pancake" hidden></div>
+      </article>
+    </section>
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="section-title"><div><span class="eyebrow">02 / SKILLS</span><h2 id="skills-title">技術・開発経験</h2></div><p>制作で使った技術と、学習を続けている分野。</p></div>
+      <div class="skills"><div class="skill-column"><span class="num">01 / CORE</span><h3>ゲーム実装</h3><p class="stack">Unity / C#<br>VRインタラクション / UI</p><p>プレイヤー操作、客の行動制御、注文・タイマー、スコア、リザルトまでのゲーム進行を実装。</p></div><div class="skill-column"><span class="num">02 / INTEGRATION</span><h3>デバイス連携</h3><p class="stack">ATOM Matrix / Arduino<br>IMU / UDP通信</p><p>センサーの入力とUnityをつなぎ、実物デバイスを使った操作や振動フィードバックを制作。</p></div><div class="skill-column"><span class="num">03 / LEARNING</span><h3>基礎・開発ツール</h3><p class="stack">C++ / Python / C<br>Git / GitHub / Visual Studio</p><p>C++のSTL・オブジェクト指向を学習中。授業・制作を通じてデータ分析やプログラミングの基礎にも取り組む。</p></div></div>
+    </section>
+    <section id="about" class="section" aria-labelledby="about-heading">
+      <div class="section-title"><div><span class="eyebrow">03 / ABOUT</span><h2 id="about-heading">プロフィール</h2></div></div>
+      <div class="about"><div><h3>沈 周用</h3><p class="about-title">SIM JUYONG</p><dl class="facts"><dt>所属</dt><dd>東海大学 情報理工学部<br>情報メディア学科</dd><dt>研究室</dt><dd>小坂研究室</dd><dt>卒業予定</dt><dd>2027年</dd><dt>志望職種</dt><dd>ゲームプログラマー<br>アプリケーション開発</dd></dl><div id="profile-links" class="profile-links" hidden></div></div><div><blockquote class="statement">仕様を実装するだけでなく、<br>遊びやすさや楽しさも提案できる<br>プログラマーを目指しています。</blockquote><p>ゲームを遊ぶ中で感じてきた、操作の気持ちよさ、情報のわかりやすさ、達成したときのうれしさ。その体験を、今度はつくる側から支えたいと考えています。</p><p>制作では、プレイヤーの操作だけでなく、UI、ゲーム進行、スコア、リザルトといった、一連の体験をつなぐ部分に関心があります。実装を通じて課題を見つけ、動作とコードの構成を改善することを大切にしています。</p></div></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span>© 2026 SIM JUYONG · GAME PROGRAMMER PORTFOLIO</span><a href="#top">ページの先頭へ</a></div></footer>
+  <script>
+    /* 編集用設定：実在するURLを入力すると、該当リンクや画像が表示されます。
+       空欄の項目は非表示です。画像は ./sushi.jpg のような相対パスも使えます。 */
+    const portfolioConfig = {
+      github: "https://github.com/jy-1105",
+      email: "",
+      projects: {
+        sushi: { image: "", imageAlt: "VR寿司弾丸のプレイ画面", video: "", source: "" },
+        tremor: { image: "", imageAlt: "手の震え体験ゲームの開発画面", video: "", source: "" },
+        pancake: { image: "", imageAlt: "FLY_PANCAKEのプレイ画面", video: "", source: "" }
+      }
+    };
+    function externalURL(value) {
+      try { const url = new URL(value); return url.protocol === "https:" || url.protocol === "http:" ? url.href : null; }
+      catch { return null; }
+    }
+    function addLink(parent, text, url) {
+      const safe = externalURL(url); if (!safe) return;
+      const link = document.createElement("a"); link.className = "button";
+      link.textContent = text; link.href = safe; link.target = "_blank"; link.rel = "noopener noreferrer";
+      parent.appendChild(link); parent.hidden = false;
+    }
+    Object.entries(portfolioConfig.projects).forEach(([id, project]) => {
+      const holder = document.querySelector('[data-media="' + id + '"]');
+      if (project.image && (externalURL(project.image) || /^assets\/[\w./-]+$/.test(project.image))) {
+        const figure = document.createElement("figure"); figure.className = "media";
+        const img = document.createElement("img"); img.src = project.image; img.alt = project.imageAlt; img.loading = "lazy";
+        img.addEventListener("error", () => { figure.hidden = true; });
+        const caption = document.createElement("figcaption"); caption.textContent = project.imageAlt;
+        figure.append(img, caption); holder.appendChild(figure);
+      }
+      const links = document.querySelector('[data-links="' + id + '"]');
+      addLink(links, "プレイ動画", project.video); addLink(links, "ソースコード", project.source);
+    });
+    const profileLinks = document.getElementById("profile-links");
+    addLink(profileLinks, "GitHub", portfolioConfig.github);
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(portfolioConfig.email)) {
+      const email = document.createElement("a"); email.className = "button"; email.href = "mailto:" + portfolioConfig.email;
+      email.textContent = "メールで連絡"; profileLinks.appendChild(email); profileLinks.hidden = false;
+    }
+  </script>
+</body>
+</html>
